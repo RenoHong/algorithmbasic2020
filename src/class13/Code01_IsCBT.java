@@ -2,7 +2,7 @@ package class13;
 
 import java.util.LinkedList;
 
-// 测试链接 : https://leetcode.com/problems/check-completeness-of-a-binary-tree/
+// 测试链接 : https://leetcode.cn/problems/check-completeness-of-a-binary-tree/
 
 public class Code01_IsCBT {
 

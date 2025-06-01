@@ -1,6 +1,6 @@
 package class04;
 
-//  本题测试链接 : https://leetcode.com/problems/reverse-pairs/
+//  本题测试链接 : https://leetcode.cn/problems/reverse-pairs/
 public class Code04_BiggerThanRightTwice {
 
 	public static int reversePairs(int[] arr) {

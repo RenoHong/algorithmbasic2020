@@ -65,7 +65,7 @@ public class Code02_AllTimesMinToMax {
 	}
 
 	// 本题可以在leetcode上找到原题
-	// 测试链接 : https://leetcode.com/problems/maximum-subarray-min-product/
+	// 测试链接 : https://leetcode.cn/problems/maximum-subarray-min-product/
 	// 注意测试题目数量大，要取模，但是思路和课上讲的是完全一样的
 	// 注意溢出的处理即可，也就是用long类型来表示累加和
 	// 还有优化就是，你可以用自己手写的数组栈，来替代系统实现的栈，也会快很多

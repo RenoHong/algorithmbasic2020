@@ -1,5 +1,8 @@
 package class03;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Stack;
 
 public class Code05_GetMinStack {
@@ -95,6 +98,9 @@ public class Code05_GetMinStack {
 		System.out.println(stack2.getmin());
 		System.out.println(stack2.pop());
 		System.out.println(stack2.getmin());
+
+		HashSet<Integer> set = new HashSet<>();
+
 	}
 
 }

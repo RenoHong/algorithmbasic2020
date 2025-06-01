@@ -1,5 +1,7 @@
 package class05;
 
+import java.util.Arrays;
+
 public class Code02_PartitionAndQuickSort {
 
 	public static void swap(int[] arr, int i, int j) {
@@ -184,7 +186,8 @@ public class Code02_PartitionAndQuickSort {
 			int[] arr3 = copyArray(arr1);
 			quickSort1(arr1);
 			quickSort2(arr2);
-			quickSort3(arr3);
+			//quickSort3(arr3);
+			Arrays.sort(arr3);
 			if (!isEqual(arr1, arr2) || !isEqual(arr2, arr3)) {
 				succeed = false;
 				break;

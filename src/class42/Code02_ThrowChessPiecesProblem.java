@@ -1,6 +1,6 @@
 package class42;
 
-// leetcode测试链接：https://leetcode.com/problems/super-egg-drop
+// leetcode测试链接：https://leetcode.cn/problems/super-egg-drop
 // 方法1和方法2会超时
 // 方法3勉强通过
 // 方法4打败100%

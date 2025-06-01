@@ -1,6 +1,6 @@
 package class47;
 
-// 本题测试链接 : https://leetcode.com/problems/strange-printer/
+// 本题测试链接 : https://leetcode.cn/problems/strange-printer/
 public class Code01_StrangePrinter {
 
 	public static int strangePrinter1(String s) {

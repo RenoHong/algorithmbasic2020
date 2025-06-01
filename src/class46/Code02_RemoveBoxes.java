@@ -1,6 +1,6 @@
 package class46;
 
-// 本题测试链接 : https://leetcode.com/problems/remove-boxes/
+// 本题测试链接 : https://leetcode.cn/problems/remove-boxes/
 public class Code02_RemoveBoxes {
 
 	// arr[L...R]消除，而且前面跟着K个arr[L]这个数

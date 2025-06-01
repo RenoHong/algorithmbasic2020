@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 // 本题为leetcode原题
-// 测试链接：https://leetcode.com/problems/number-of-islands-ii/
+// 测试链接：https://leetcode.cn/problems/number-of-islands-ii/
 // 所有方法都可以直接通过
 public class Code03_NumberOfIslandsII {
 

@@ -1,6 +1,6 @@
 package class26;
 
-// 测试链接：https://leetcode.com/problems/sum-of-subarray-minimums/
+// 测试链接：https://leetcode.cn/problems/sum-of-subarray-minimums/
 // subArrayMinSum1是暴力解
 // subArrayMinSum2是最优解的思路
 // sumSubarrayMins是最优解思路下的单调栈优化

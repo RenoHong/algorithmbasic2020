@@ -2,7 +2,7 @@ package class25;
 
 import java.util.Stack;
 
-// 测试链接：https://leetcode.com/problems/largest-rectangle-in-histogram
+// 测试链接：https://leetcode.cn/problems/largest-rectangle-in-histogram
 public class Code03_LargestRectangleInHistogram {
 
 	public static int largestRectangleArea1(int[] height) {
