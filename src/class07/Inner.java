@@ -4,9 +4,9 @@ package class07;
 // 这个文件是废物！留在这里是为了提醒同学们 : 
 // 看"Code03_ShowHeapGreater"，展示了用法
 public class Inner<T> {
-	public T value;
+    public T value;
 
-	public Inner(T v) {
-		value = v;
-	}
+    public Inner(T v) {
+        value = v;
+    }
 }

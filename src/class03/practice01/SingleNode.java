@@ -1,42 +1,34 @@
-package class03.practice;
+package class03.practice01;
 
-import com.sun.java.swing.plaf.windows.WindowsTextAreaUI;
 import util.Node;
-import util.Tester;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 public class SingleNode {
 
-    public static Node reverse(Node head){
+    public static Node reverse(Node head) {
         if (head == null || head.next == null) return head;
-        Node pre = null ;
+        Node pre = null;
 
-        while(head!=null){
+        while (head != null) {
             Node next = head.next;
-            head.next = pre ;
-            pre = head ;
+            head.next = pre;
+            pre = head;
             head = next;
         }
-        return pre ;
+        return pre;
     }
 
-    public static Node remove(Node head, int n){
-        while(head != null){
-            if (head.value ==n){
-                head = head.next ;
-            }
-            else {
+    public static Node remove(Node head, int n) {
+        while (head != null) {
+            if (head.value == n) {
+                head = head.next;
+            } else {
                 break;
             }
         }
 
         Node pre = head;
         Node cur = head;
-        while(cur != null) {
+        while (cur != null) {
             if (cur.value == n) {
                 pre.next = cur.next;
             } else {
@@ -45,7 +37,7 @@ public class SingleNode {
             cur = cur.next;
         }
 
-        return  head ;
+        return head;
     }
 
     public static void main(String[] args) {
