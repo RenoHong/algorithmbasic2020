@@ -8,7 +8,8 @@ public class Test {
 
         LocalDateTime d1 = LocalDateTime.now();
         LocalDateTime d2 = d1.plusMinutes(2);
-        long between = ChronoUnit.DAYS.between(d1, d2);
+
+        long between = ChronoUnit.MILLIS.between(d1, d2);
         System.out.println(between);
     }
 }
