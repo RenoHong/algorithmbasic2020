@@ -115,7 +115,7 @@ public class Code03_Heap02 {
         private HashMap<T, Integer> indexMap;
         private int heapSize;
         private Comparator<? super T> comparator;
-
+        // 用于存储堆元素和其在堆中的索引的映射关系
         public MyHeap(Comparator<? super T> com) {
             heap = new ArrayList<>();
             indexMap = new HashMap<>();

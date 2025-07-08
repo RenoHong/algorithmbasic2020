@@ -119,7 +119,7 @@ public class Code01_MergeSort {
         while (mergeSize < N) {
             int L = 0; // Start index of the left subarray
             while (L < N) {
-                // If the remaining elements are less than mergeSize, don't merge.
+                // If the remaining e lements are less than mergeSize, don't merge.
                 if (mergeSize >= N - L) {
                     break;
                 }

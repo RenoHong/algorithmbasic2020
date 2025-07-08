@@ -4,6 +4,22 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+/*
+ * 这是一个**线段最大重叠数**问题（区间最大重叠/最大覆盖问题）。
+
+**题目描述：**  
+给定若干条线段（每条线段有起点和终点），问在数轴上，最多有多少条线段在某一个点上重叠（即被覆盖）。
+
+**常见表述：**  
+给定N个区间，每个区间形如 [start, end]，求某个点被最多区间覆盖的最大值。
+
+**代码说明：**  
+- `maxCover1` 是暴力解法，枚举所有可能的点，统计被多少条线段覆盖。
+- `maxCover2` 和 `maxCover3` 是利用排序和小根堆的高效解法，时间复杂度更优。
+
+这是经典的**区间重叠问题**，常用于考察贪心、堆、排序等算法思想。
+ * 
+ */
 public class Code01_CoverMax {
 
     public static int maxCover1(int[][] lines) {

@@ -121,6 +121,7 @@ public class Code02_Heap01 {
             return size == 0;
         }
 
+
         public boolean isFull() {
             return size == limit;
         }

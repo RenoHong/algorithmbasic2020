@@ -1,4 +1,4 @@
-package class04.practice;
+package class04.practice01;
 
 import util.Tester;
 

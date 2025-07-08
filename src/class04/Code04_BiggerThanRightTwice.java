@@ -59,6 +59,13 @@ public class Code04_BiggerThanRightTwice {
             while (windowR <= r && (long) arr[i] > (long) arr[windowR] * 2) {
                 windowR++;
             }
+
+            //The -1 in ans += windowR - m - 1; is needed because:
+            //windowR is incremented until it points to the first element in the right subarray
+            // that does not satisfy arr[i] > 2 * arr[windowR].
+            //The number of valid j indices for a given i is from m + 1 to windowR - 1.
+            //So, the count is (windowR - 1) - (m + 1) + 1 = windowR - m - 1.
+            //This ensures only the valid pairs are counted.
             ans += windowR - m - 1;
         }
         int[] help = new int[r - L + 1]; // Temporary array for merging
@@ -184,17 +191,17 @@ public class Code04_BiggerThanRightTwice {
         int maxSize = 100; // Maximum array size
         int maxValue = 100; // Maximum element value
         System.out.println("测试开始");
-        //for (int i = 0; i < testTime; i++) {
-        //int[] arr1 = generateRandomArray(maxSize, maxValue); // Generate random array
-        int[] arr1 = new int[]{2147483647, 2147483647, 2147483647, 2147483647, 2147483647, 2147483647};
-        int[] arr2 = copyArray(arr1); // Copy the array
-        if (reversePairs(arr1) != comparator(arr2)) { // Compare results
-            System.out.println("Oops!");
-            printArray(arr1);
-            printArray(arr2);
-            //break;
+        for (int i = 0; i < testTime; i++) {
+            int[] arr1 = generateRandomArray(maxSize, maxValue); // Generate random array
+            //int[] arr1 = new int[]{2147483647, 2147483647, 2147483647, 2147483647, 2147483647, 2147483647};
+            int[] arr2 = copyArray(arr1); // Copy the array
+            if (reversePairs(arr1) != comparator(arr2)) { // Compare results
+                System.out.println("Oops!");
+                printArray(arr1);
+                printArray(arr2);
+                //break;
+            }
         }
-        //}
         System.out.println("测试结束");
     }
 

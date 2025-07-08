@@ -10,6 +10,48 @@ public class Code02_SmallSum {
      *
      * @param arr the input array
      * @return the small sum
+     *
+     *
+     * Small Sum is a concept from array algorithms, often used in coding interviews. It is defined as follows:
+     *
+     * Given an array, the small sum of the array is the sum of all elements to the left of each element that are less than the current element.
+     * For every element arr[i], you sum up all arr[j] where j < i and arr[j] < arr[i].
+     *
+     *
+     * Example
+     * For the array [1, 3, 4, 2, 5]:
+     *
+     *
+     * For 1: no elements to the left, sum = 0
+     * For 3: 1 is less than 3, sum = 1
+     * For 4: 1, 3 are less than 4, sum = 1 + 3 = 4
+     * For 2: 1 is less than 2, sum = 1
+     * For 5: 1, 3, 4, 2 are less than 5, sum = 1 + 3 + 4 + 2 = 10
+     * Total small sum = 0 + 1 + 4 + 1 + 10 = 16
+     *
+     * <hr></hr>
+     * Step-by-Step Introduction
+     * 1. Brute Force Approach
+     * For each element, check all elements to its left.
+     * Time complexity: O(N²)
+     * 2. Optimized Approach (Merge Sort)
+     * Use a modified merge sort to calculate the small sum efficiently.
+     * During the merge step, when an element from the left subarray is less than an element from the right, it contributes to the small sum for all remaining elements in the right subarray.
+     * Time complexity: O(N log N)
+     * 3. Implementation Outline
+     * Recursively divide the array (like merge sort).
+     * During merge, for each arr[p1] < arr[p2], add (r - p2 + 1) * arr[p1] to the result.
+     * Merge the subarrays as in merge sort.
+     * <hr></hr>
+     * Why Use Merge Sort?
+     * It leverages the sorted property of subarrays to efficiently count contributions to the small sum.
+     * Reduces time complexity from O(N²) to O(N log N).
+     * <hr></hr>
+     * Applications
+     * Understanding small sum helps with similar problems like counting inversions.
+     * Useful in competitive programming and technical interviews.
+     * <hr></hr> Summary:
+     * Small sum is the sum of all elements to the left of each element that are less than it. The optimal solution uses a merge sort-based approach for efficiency.
      */
     public static int smallSum(int[] arr) {
         // If the array is null or has less than 2 elements, small sum is 0
