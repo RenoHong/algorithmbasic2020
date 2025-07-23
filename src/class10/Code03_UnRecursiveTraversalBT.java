@@ -101,11 +101,11 @@ public class Code03_UnRecursiveTraversalBT {
                 // 情况1：左子树存在且未处理（h不是c的左子树也不是c的右子树）
                 if (c.left != null && h != c.left && h != c.right) {
                     stack.push(c.left); // 压入左子树
-                } 
+                }
                 // 情况2：右子树存在且未处理（h不是c的右子树）
                 else if (c.right != null && h != c.right) {
                     stack.push(c.right); // 压入右子树
-                } 
+                }
                 // 情况3：左右子树都已处理完毕，可以处理当前节点
                 else {
                     System.out.print(stack.pop().value + " "); // 弹出并处理

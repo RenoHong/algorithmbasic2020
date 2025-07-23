@@ -1,55 +1,56 @@
 package class01.practice02;
-import java.util.Map;
+
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public class KM02 {
 
-    public static int findK(int[] arr, int k, int m){
+    public static int findK(int[] arr, int k, int m) {
         Map<Integer, Integer> map = new HashMap<>();
         createMap(map);
-        int[] T = new int[32] ;
-        int ans =0 ; 
+        int[] T = new int[32];
+        int ans = 0;
 
-        for(int n : arr){
-           while(n!=0){
-            int rightMost = n & (-n);
-            T[map.get(rightMost)]++;
-            n ^= rightMost ;
-           }
+        for (int n : arr) {
+            while (n != 0) {
+                int rightMost = n & (-n);
+                T[map.get(rightMost)]++;
+                n ^= rightMost;
+            }
         }
 
-        for(int i=0; i<32; i++){
-            if(T[i] %m !=0){
-                if(T[i]%m ==k){
-                    ans |= ( 1 << i) ;
-                }else{
-                    return -1 ;
+        for (int i = 0; i < 32; i++) {
+            if (T[i] % m != 0) {
+                if (T[i] % m == k) {
+                    ans |= (1 << i);
+                } else {
+                    return -1;
                 }
-            } 
+            }
         }
-        if(ans == 0 ){
-            int c =0 ; 
-            for(int i =0 ; i < arr.length; i++){
-                if(arr[i] == 0)
+        if (ans == 0) {
+            int c = 0;
+            for (int i = 0; i < arr.length; i++) {
+                if (arr[i] == 0)
                     c++;
             }
-            if(c !=k ){
+            if (c != k) {
                 return -1;
             }
         }
-        return ans ;
+        return ans;
 
     }
 
-    private static void createMap(Map<Integer, Integer> map){
-        int value =1 ; 
-        for(int i =0; i< 32; i++){
+    private static void createMap(Map<Integer, Integer> map) {
+        int value = 1;
+        for (int i = 0; i < 32; i++) {
             map.put((value << i), i);
         }
     }
 
- 
+
     /**
      * Brute-force method to find the number that appears K times.
      *
@@ -158,7 +159,7 @@ public class KM02 {
                 System.out.println(ans1);
                 System.out.println(ans2);
                 System.out.println("出错了！");
-                break ;
+                break;
             }
         }
         System.out.println("测试结束");

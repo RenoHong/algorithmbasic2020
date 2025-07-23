@@ -6,8 +6,8 @@ public class Code03_SmallerEqualBigger {
      * 方法1：使用数组辅助进行链表分区
      * 将链表节点放入数组，使用荷兰国旗问题的思路进行分区，然后重新连接
      * 时间复杂度：O(n)，空间复杂度：O(n)
-     * 
-     * @param head 链表头节点
+     *
+     * @param head  链表头节点
      * @param pivot 分区的基准值
      * @return 分区后的链表头节点
      */
@@ -15,7 +15,7 @@ public class Code03_SmallerEqualBigger {
         if (head == null) {
             return head;
         }
-        
+
         // 第一步：计算链表长度
         Node cur = head;
         int i = 0;
@@ -23,7 +23,7 @@ public class Code03_SmallerEqualBigger {
             i++;                // 统计节点个数
             cur = cur.next;     // 遍历到下一个节点
         }
-        
+
         // 第二步：将链表节点存入数组
         Node[] nodeArr = new Node[i];  // 创建节点数组
         i = 0;
@@ -32,10 +32,10 @@ public class Code03_SmallerEqualBigger {
             nodeArr[i] = cur;   // 将当前节点存入数组
             cur = cur.next;     // 移动到下一个节点
         }
-        
+
         // 第三步：对数组进行分区（荷兰国旗问题）
         arrPartition(nodeArr, pivot);
-        
+
         // 第四步：重新连接节点形成链表
         for (i = 1; i != nodeArr.length; i++) {
             nodeArr[i - 1].next = nodeArr[i];  // 连接相邻节点
@@ -47,15 +47,15 @@ public class Code03_SmallerEqualBigger {
     /**
      * 荷兰国旗问题：将数组分为三个区域
      * 小于pivot的区域 | 等于pivot的区域 | 大于pivot的区域
-     * 
+     *
      * @param nodeArr 节点数组
-     * @param pivot 分区基准值
+     * @param pivot   分区基准值
      */
     public static void arrPartition(Node[] nodeArr, int pivot) {
         int small = -1;              // 小于区域的右边界（不包含）
         int big = nodeArr.length;    // 大于区域的左边界（不包含）
         int index = 0;               // 当前处理的位置
-        
+
         // 遍历数组，将元素分配到对应区域
         while (index != big) {
             if (nodeArr[index].value < pivot) {
@@ -74,9 +74,10 @@ public class Code03_SmallerEqualBigger {
 
     /**
      * 交换数组中两个位置的元素
+     *
      * @param nodeArr 节点数组
-     * @param a 位置a
-     * @param b 位置b
+     * @param a       位置a
+     * @param b       位置b
      */
     public static void swap(Node[] nodeArr, int a, int b) {
         Node tmp = nodeArr[a];
@@ -88,8 +89,8 @@ public class Code03_SmallerEqualBigger {
      * 方法2：直接在链表上进行分区，不使用额外数组
      * 使用6个指针分别维护小于、等于、大于三个区域的头尾
      * 时间复杂度：O(n)，空间复杂度：O(1)
-     * 
-     * @param head 链表头节点
+     *
+     * @param head  链表头节点
      * @param pivot 分区基准值
      * @return 分区后的链表头节点
      */
@@ -101,12 +102,12 @@ public class Code03_SmallerEqualBigger {
         Node mH = null; // more(big) head - 大于区域的头节点
         Node mT = null; // more(big) tail - 大于区域的尾节点
         Node next = null; // save next node - 保存下一个节点
-        
+
         // 第一步：遍历链表，将每个节点分配到对应的区域
         while (head != null) {
             next = head.next;  // 保存下一个节点
             head.next = null;  // 断开当前节点的连接
-            
+
             if (head.value < pivot) {
                 // 当前节点值小于pivot，加入小于区域
                 if (sH == null) {
@@ -137,14 +138,14 @@ public class Code03_SmallerEqualBigger {
             }
             head = next;  // 移动到下一个节点
         }
-        
+
         // 第二步：连接三个区域
         // 小于区域的尾巴，连等于区域的头，等于区域的尾巴连大于区域的头
         if (sT != null) { // 如果有小于区域
             sT.next = eH;  // 小于区域的尾连接等于区域的头
             eT = eT == null ? sT : eT; // 下一步，谁去连大于区域的头，谁就变成eT
         }
-        
+
         // 下一步，一定是需要用eT 去接 大于区域的头
         // 有等于区域，eT -> 等于区域的尾结点
         // 无等于区域，eT -> 小于区域的尾结点
@@ -152,7 +153,7 @@ public class Code03_SmallerEqualBigger {
         if (eT != null) { // 如果小于区域和等于区域，不是都没有
             eT.next = mH;  // 连接大于区域的头
         }
-        
+
         // 第三步：返回最终的头节点
         // 优先返回小于区域的头，其次是等于区域的头，最后是大于区域的头
         return sH != null ? sH : (eH != null ? eH : mH);
@@ -160,6 +161,7 @@ public class Code03_SmallerEqualBigger {
 
     /**
      * 打印链表的所有节点值
+     *
      * @param node 链表头节点
      */
     public static void printLinkedList(Node node) {
@@ -183,7 +185,7 @@ public class Code03_SmallerEqualBigger {
         head1.next.next.next.next = new Node(5);
         head1.next.next.next.next.next = new Node(2);
         head1.next.next.next.next.next.next = new Node(5);
-        
+
         printLinkedList(head1);
         // head1 = listPartition1(head1, 4);  // 使用方法1
         head1 = listPartition2(head1, 5);     // 使用方法2，以5为基准分区

@@ -8,32 +8,32 @@ package class05;
  * Given an integer array nums, count the number of range sums that lie in [lower, upper].
  * The algorithm uses a merge sort approach with O(NlogN) time complexity.
  * <br /><br />
- *
+ * <p>
  * Step-by-step explanation and idea:
  * <br /><br />
  * 1. **Brute-force approach**:
- *    - For each subarray (i, j), calculate the sum and check if it is in [lower, upper].
- *    - This is O(N^2) and too slow for large arrays.
+ * - For each subarray (i, j), calculate the sum and check if it is in [lower, upper].
+ * - This is O(N^2) and too slow for large arrays.
  * <br /><br />
  * 2. **Prefix sum transformation**:
- *    - Let prefixSum[i] = sum of nums[0..i].
- *    - The sum of subarray nums[i..j] = prefixSum[j] - prefixSum[i-1] (or prefixSum[j] if i==0).
- *    - So, for each j, we want to count how many i <= j such that:
- *      lower <= prefixSum[j] - prefixSum[i-1] <= upper
- *      => prefixSum[j] - upper <= prefixSum[i-1] <= prefixSum[j] - lower
- *    - This reduces the problem to, for each prefixSum[j], counting how many previous prefix sums fall into a certain range.
+ * - Let prefixSum[i] = sum of nums[0..i].
+ * - The sum of subarray nums[i..j] = prefixSum[j] - prefixSum[i-1] (or prefixSum[j] if i==0).
+ * - So, for each j, we want to count how many i <= j such that:
+ * lower <= prefixSum[j] - prefixSum[i-1] <= upper
+ * => prefixSum[j] - upper <= prefixSum[i-1] <= prefixSum[j] - lower
+ * - This reduces the problem to, for each prefixSum[j], counting how many previous prefix sums fall into a certain range.
  * <br /><br />
  * 3. **Efficient counting using merge sort**:
- *    - We use a modified merge sort on the prefix sum array.
- *    - For each merge step, for each right part element, we use two pointers to find the range in the left part that fits the condition.
- *    - This is possible because merge sort keeps the left and right parts sorted.
- *    - The counting is done during the merge step, and the array is sorted as usual.
- *    - This reduces the time complexity to O(NlogN).
+ * - We use a modified merge sort on the prefix sum array.
+ * - For each merge step, for each right part element, we use two pointers to find the range in the left part that fits the condition.
+ * - This is possible because merge sort keeps the left and right parts sorted.
+ * - The counting is done during the merge step, and the array is sorted as usual.
+ * - This reduces the time complexity to O(NlogN).
  * <br /><br />
  * 4. **Implementation details**:
- *    - We build the prefix sum array.
- *    - We recursively process the prefix sum array using the process() and merge() methods.
- *    - The merge() method counts valid pairs and merges the sorted arrays.
+ * - We build the prefix sum array.
+ * - We recursively process the prefix sum array using the process() and merge() methods.
+ * - The merge() method counts valid pairs and merges the sorted arrays.
  * <br /><br />
  * This approach is inspired by the classic "reverse pairs" or "small sum" problems, where merge sort is used to count pairs efficiently.
  */
@@ -41,7 +41,8 @@ public class Code01_CountOfRangeSum {
 
     /**
      * Main method to count the number of range sums in [lower, upper].
-     * @param nums Input integer array
+     *
+     * @param nums  Input integer array
      * @param lower Lower bound of the range
      * @param upper Upper bound of the range
      * @return Number of valid range sums
@@ -63,9 +64,10 @@ public class Code01_CountOfRangeSum {
 
     /**
      * Recursively process sum[L..R], return the count of range sums in [lower, upper].
-     * @param sum Prefix sum array
-     * @param L Left boundary
-     * @param R Right boundary
+     *
+     * @param sum   Prefix sum array
+     * @param L     Left boundary
+     * @param R     Right boundary
      * @param lower Lower bound of the range
      * @param upper Upper bound of the range
      * @return Number of valid range sums in this segment
@@ -85,10 +87,11 @@ public class Code01_CountOfRangeSum {
 
     /**
      * Merge step of merge sort, also counts the number of valid cross-segment range sums.
-     * @param arr Prefix sum array
-     * @param L Left boundary
-     * @param M Middle index
-     * @param R Right boundary
+     *
+     * @param arr   Prefix sum array
+     * @param L     Left boundary
+     * @param M     Middle index
+     * @param R     Right boundary
      * @param lower Lower bound of the range
      * @param upper Upper bound of the range
      * @return Number of valid cross-segment range sums

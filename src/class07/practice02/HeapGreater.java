@@ -24,7 +24,7 @@ public class HeapGreater<T> {
     }
 
     public boolean isEmpty(){
-        return heapSize == 0;
+        return heap.isEmpty();
     }
 
     public void push(T obj){
@@ -37,8 +37,8 @@ public class HeapGreater<T> {
         if(isEmpty())
             throw new RuntimeException("Empty!");
         T ans = heap.get(0);
-        swap(0, heapSize-1);
-        heap.remove(--heapSize) ;
+        swap(0, heapSize--);
+        heap.remove(ans) ;
         indexMap.remove(ans);
         heapify(0);
         return ans ;
@@ -55,10 +55,11 @@ public class HeapGreater<T> {
         indexMap.put(oy, x);
     } 
 
-    private void heapInsert(int index){ 
-        while (index > 0 && comparator.compare(heap.get(index), heap.get((index-1)/2)) < 0) {
-            swap(index, (index-1)/2 );
-            index = (index-1)/2 ;
+    private void heapInsert(int index){
+        int parent =(index-1)/2 ;
+        while(comparator.compare(heap.get(index), heap.get(parent)) > 0){
+            swap(index, parent );
+            index = parent ;
         }
     }
 

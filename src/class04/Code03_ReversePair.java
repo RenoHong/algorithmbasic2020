@@ -2,9 +2,9 @@ package class04;
 
 /**
  * This class provides a method to count reverse pairs in an array using a modified merge sort.
- *  A reverse pair in an array is a pair of indices ((i, j)) such that (i < j) and (arr[i] > arr[j]).
- *  It counts how many times a larger number appears before a smaller number in the array.
- *  This is often used to measure how unsorted an array is.
+ * A reverse pair in an array is a pair of indices ((i, j)) such that (i < j) and (arr[i] > arr[j]).
+ * It counts how many times a larger number appears before a smaller number in the array.
+ * This is often used to measure how unsorted an array is.
  **/
 
 public class Code03_ReversePair {

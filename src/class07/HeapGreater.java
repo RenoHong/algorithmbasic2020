@@ -14,6 +14,7 @@ public class HeapGreater<T> {
 
     /**
      * 构造函数，初始化堆和辅助结构
+     *
      * @param c 比较器
      */
     public HeapGreater(Comparator<? super T> c) {

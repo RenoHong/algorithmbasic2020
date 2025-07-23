@@ -99,6 +99,7 @@ public class Code02_Heap {
 
         /**
          * Constructor for the max heap with a size limit
+         *
          * @param limit Maximum number of elements the heap can hold
          */
         public MyMaxHeap(int limit) {
@@ -109,6 +110,7 @@ public class Code02_Heap {
 
         /**
          * Checks if the heap is empty
+         *
          * @return true if the heap has no elements, false otherwise
          */
         public boolean isEmpty() {
@@ -117,6 +119,7 @@ public class Code02_Heap {
 
         /**
          * Checks if the heap is full
+         *
          * @return true if the heap has reached its capacity, false otherwise
          */
         public boolean isFull() {
@@ -125,6 +128,7 @@ public class Code02_Heap {
 
         /**
          * Adds a new value to the heap
+         *
          * @param value The value to add
          */
         public void push(int value) {
@@ -139,6 +143,7 @@ public class Code02_Heap {
 
         /**
          * Removes and returns the maximum value from the heap
+         *
          * @return The maximum value in the heap
          */
         public int pop() {
@@ -156,7 +161,7 @@ public class Code02_Heap {
          * Heapify up: moves a value up the tree until the heap property is satisfied
          * This is used when adding a new element to the heap
          *
-         * @param arr The heap array
+         * @param arr   The heap array
          * @param index The index of the element to move up
          */
         private void heapInsert(int[] arr, int index) {
@@ -174,8 +179,8 @@ public class Code02_Heap {
          * Heapify down: moves a value down the tree until the heap property is satisfied
          * This is used after removing the root element
          *
-         * @param arr The heap array
-         * @param index The index to start heapifying from
+         * @param arr      The heap array
+         * @param index    The index to start heapifying from
          * @param heapSize Current size of the heap
          */
         private void heapify(int[] arr, int index, int heapSize) {
@@ -209,8 +214,8 @@ public class Code02_Heap {
          * Helper method to swap two elements in an array
          *
          * @param arr The array
-         * @param i First index
-         * @param j Second index
+         * @param i   First index
+         * @param j   Second index
          */
         private void swap(int[] arr, int i, int j) {
             int tmp = arr[i];
@@ -231,6 +236,7 @@ public class Code02_Heap {
 
         /**
          * Constructor for the naive max heap
+         *
          * @param limit Maximum number of elements the heap can hold
          */
         public RightMaxHeap(int limit) {
@@ -241,6 +247,7 @@ public class Code02_Heap {
 
         /**
          * Checks if the heap is empty
+         *
          * @return true if the heap has no elements, false otherwise
          */
         public boolean isEmpty() {
@@ -249,6 +256,7 @@ public class Code02_Heap {
 
         /**
          * Checks if the heap is full
+         *
          * @return true if the heap has reached its capacity, false otherwise
          */
         public boolean isFull() {
@@ -257,6 +265,7 @@ public class Code02_Heap {
 
         /**
          * Adds a value to the heap (simply appends it to the array)
+         *
          * @param value The value to add
          */
         public void push(int value) {
@@ -269,6 +278,7 @@ public class Code02_Heap {
         /**
          * Removes and returns the maximum value from the heap
          * This searches the entire array to find the max value - O(N) time complexity
+         *
          * @return The maximum value in the heap
          */
         public int pop() {

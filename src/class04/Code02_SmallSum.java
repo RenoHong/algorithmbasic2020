@@ -10,18 +10,18 @@ public class Code02_SmallSum {
      *
      * @param arr the input array
      * @return the small sum
-     *
-     *
+     * <p>
+     * <p>
      * Small Sum is a concept from array algorithms, often used in coding interviews. It is defined as follows:
-     *
+     * <p>
      * Given an array, the small sum of the array is the sum of all elements to the left of each element that are less than the current element.
      * For every element arr[i], you sum up all arr[j] where j < i and arr[j] < arr[i].
-     *
-     *
+     * <p>
+     * <p>
      * Example
      * For the array [1, 3, 4, 2, 5]:
-     *
-     *
+     * <p>
+     * <p>
      * For 1: no elements to the left, sum = 0
      * For 3: 1 is less than 3, sum = 1
      * For 4: 1, 3 are less than 4, sum = 1 + 3 = 4

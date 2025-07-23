@@ -21,9 +21,9 @@ public class BSNearLeft {
     }
 
     public static void main(String[] args) {
-        int[] arr = new int[]{1,2,3,4,5,6,7,8,9,10,11,23,56,80,700};
-        int res = find(arr, 3) ;
-        System.out.println(res) ;
+        int[] arr = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 23, 56, 80, 700};
+        int res = find(arr, 3);
+        System.out.println(res);
     }
 
 }

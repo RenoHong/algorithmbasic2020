@@ -2,6 +2,25 @@ package class03.practice02;
 
 public class DoubleEndsQueueToStackAndQueue {
 
+    public static void main(String[] args) {
+        MyStack<Integer> stack = new MyStack<>();
+        MyQueue<Integer> queue = new MyQueue<>();
+        for (int i = 0; i < 10; i++) {
+            stack.push(i);
+        }
+        for (int i = 0; i < 10; i++) {
+            System.out.println(stack.pop());
+        }
+
+        for (int i = 0; i < 10; i++) {
+            queue.push(i);
+        }
+        for (int i = 0; i < 11; i++) {
+            System.out.println(queue.poll());
+        }
+
+    }
+
     public static class Node<T> {
         T value;
         Node<T> last, next;
@@ -94,40 +113,25 @@ public class DoubleEndsQueueToStackAndQueue {
 
     }
 
+    public static class MyQueue<T> {
 
-    public static class MyQueue<T>{
+        DoubleEndNode<T> nodes = new DoubleEndNode<>();
 
-        DoubleEndNode<T> nodes = new DoubleEndNode<>() ;
-        public void push(T value){
+        public void push(T value) {
             nodes.addFromHead(value);
         }
-        public T poll(){
-           return nodes.popFromTail();
+
+        public T poll() {
+            return nodes.popFromTail();
         }
 
-        public boolean isEmpty(){
-            return nodes.isEmpty() ;
-        }
-        public int size(){ return nodes.size ;}
-    }
-
-    public static void main(String[] args) {
-        MyStack<Integer>  stack = new MyStack<>() ;
-        MyQueue<Integer>  queue = new MyQueue<>() ;
-        for (int i = 0; i < 10; i++) {
-            stack.push(i);
-        }
-        for (int i = 0; i < 10; i++) {
-            System.out.println(stack.pop());
+        public boolean isEmpty() {
+            return nodes.isEmpty();
         }
 
-        for (int i = 0; i < 10; i++) {
-            queue.push(i);
+        public int size() {
+            return nodes.size;
         }
-        for (int i = 0; i < 11; i++) {
-            System.out.println(queue.poll());
-        }
-
     }
 
 

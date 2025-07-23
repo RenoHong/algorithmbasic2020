@@ -14,10 +14,10 @@ public class PartitionAndQuickSort {
         if (l >= r)
             return;
 
-        swap(arr, l + new Random().nextInt(r-1+1), r);
+        swap(arr, l + new Random().nextInt(r - 1 + 1), r);
         int[] m = netherlandsFlag(arr, l, r);
-        process(arr, l, m[0] -1);
-        process(arr, m[1]+1, r);
+        process(arr, l, m[0] - 1);
+        process(arr, m[1] + 1, r);
     }
 
     private static int partition(int[] arr, int l, int r) {
@@ -36,7 +36,7 @@ public class PartitionAndQuickSort {
             }
         }
         swap(arr, ++less, r);
-        return less ;
+        return less;
     }
 
 

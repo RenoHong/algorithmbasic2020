@@ -59,9 +59,9 @@ public class CountOfRangeSum {
             helper[i++] = sum[p2++];
 
         for (int j = 0; j < helper.length; j++) {
-            sum[l+j] = helper[j] ;
+            sum[l + j] = helper[j];
         }
-        return ans ;
+        return ans;
     }
 
 

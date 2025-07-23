@@ -2,9 +2,9 @@ package class03.practice02;
 
 public class RingArray {
 
+    final int capacity;
     int[] data;
     int size;
-    final int capacity;
     int pushi;
     int polli;
 
@@ -39,11 +39,12 @@ public class RingArray {
         return index < capacity - 1 ? index + 1 : 0;
     }
 
-    public boolean isEmpty(){
-        return size ==0 ;
+    public boolean isEmpty() {
+        return size == 0;
     }
-    public int size(){
-        return size ;
+
+    public int size() {
+        return size;
     }
 
 }

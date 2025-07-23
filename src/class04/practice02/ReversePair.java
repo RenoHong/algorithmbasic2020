@@ -27,16 +27,16 @@ public class ReversePair {
         int i = helper.length - 1;
         int res = 0;
         while (p1 >= l && p2 >= m + 1) {
-            res += arr[p1] > arr[p2] ? p2 - m :0 ;
-           helper[i--] = arr[p1] > arr[p2] ? arr[p1--] : arr[p2--];
+            res += arr[p1] > arr[p2] ? p2 - m : 0;
+            helper[i--] = arr[p1] > arr[p2] ? arr[p1--] : arr[p2--];
         }
-        while(p1 >= l){
-            helper[i--] = arr[p1--] ;
+        while (p1 >= l) {
+            helper[i--] = arr[p1--];
         }
-        while(p2>= m+1){
+        while (p2 >= m + 1) {
             helper[i--] = arr[p2--];
         }
-        return res ;
+        return res;
     }
 
 }
