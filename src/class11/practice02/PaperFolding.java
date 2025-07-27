@@ -4,6 +4,7 @@ public class PaperFolding {
 
     public static void printAllFolds(int  n){
         process(1, n, true);
+        System.out.println();
     }
 
     private static void process(int i, int n, boolean upDown){

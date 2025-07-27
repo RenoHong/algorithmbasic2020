@@ -65,7 +65,7 @@ public class Code04_IsFull {
     public static void main(String[] args) {
         int maxLevel = 5;
         int maxValue = 100;
-        int testTimes = 1000000;
+        int testTimes = 1000_000;
         System.out.println("测试开始");
         for (int i = 0; i < testTimes; i++) {
             Node head = generateRandomBST(maxLevel, maxValue);

@@ -1,216 +1,223 @@
+// Package declaration - organizes code into class11 module
 package class11;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
+// Import necessary data structures for the algorithms
+import java.util.HashMap;      // For Method 1: tracks node-to-level mapping
+import java.util.LinkedList;   // Provides Queue implementation for BFS
+import java.util.Queue;        // Interface for level-order traversal
 
 /**
- * Binary Tree Maximum Width Calculator
- * This class provides two different approaches to find the maximum width of a binary tree
- * Width is defined as the maximum number of nodes at any level of the tree
+ * ALGORITHM EXPLANATION:
+ *
+ * Problem: Find maximum width of binary tree
+ * Width = maximum number of nodes at any single level
+ *
+ * Approach: Level-order traversal (BFS) to count nodes per level
+ *
+ * Two Methods Provided:
+ * 1. HashMap-based: Uses extra space to track node levels explicitly
+ * 2. Boundary-tracking: More space-efficient, tracks level boundaries
  */
 public class Code05_TreeMaxWidth {
 
     /**
-     * Method 1: Calculate maximum width using HashMap to track node levels
-     * Time Complexity: O(n) where n is number of nodes
-     * Space Complexity: O(n) for queue and hashmap
+     * METHOD 1 DETAILED EXPLANATION:
      *
-     * @param head root node of the binary tree
-     * @return maximum width (number of nodes) at any level
+     * Strategy: Use HashMap to explicitly track which level each node belongs to
+     *
+     * Why this works:
+     * - BFS naturally processes nodes level by level
+     * - HashMap allows us to know exactly which level any node belongs to
+     * - We can count nodes per level and track maximum
+     *
+     * Trade-offs:
+     * + Easy to understand and implement
+     * + Clear separation of concerns
+     * - Extra O(n) space for HashMap
+     * - HashMap operations have slight overhead
      */
     public static int maxWidthUseMap(Node head) {
-        // Base case: empty tree has width 0
-        if (head == null) {
-            return 0;
+        if (head == null) {           // Edge case: empty tree
+            return 0;                 // Width is 0 for empty tree
         }
 
-        // Initialize queue for level-order traversal (BFS)
-        Queue<Node> queue = new LinkedList<>();
-        queue.add(head); // Add root node to start traversal
+        // Core data structures for BFS traversal
+        Queue<Node> queue = new LinkedList<>();  // FIFO queue for BFS
+        queue.add(head);                         // Start with root node
 
-        // HashMap to track which level each node belongs to
-        // Key: Node reference, Value: Level number (starting from 1)
+        // Key insight: HashMap maps each node to its level number
         HashMap<Node, Integer> levelMap = new HashMap<>();
-        levelMap.put(head, 1); // Root is at level 1
+        levelMap.put(head, 1);                   // Root is at level 1 (not 0)
 
-        int curLevel = 1;       // Current level we're counting nodes for
-        int curLevelNodes = 0;  // Number of nodes found in current level so far
-        int max = 0;           // Maximum width found so far
+        // State variables for tracking current level
+        int curLevel = 1;                        // Level we're currently counting
+        int curLevelNodes = 0;                   // Nodes found in current level
+        int max = 0;                            // Global maximum width found
 
-        // Continue until all nodes are processed
+        // Main BFS loop - continues until all nodes processed
         while (!queue.isEmpty()) {
-            // Remove and process next node from queue
-            Node cur = queue.poll();
-            // Get the level of current node from our mapping
-            int curNodeLevel = levelMap.get(cur);
+            Node cur = queue.poll();             // Get next node (FIFO order)
+            int curNodeLevel = levelMap.get(cur); // Look up this node's level
 
-            // Add left child to queue if it exists
+            // Process left child if it exists
             if (cur.left != null) {
-                // Left child is one level deeper than parent
+                // Key insight: child level = parent level + 1
                 levelMap.put(cur.left, curNodeLevel + 1);
-                queue.add(cur.left);
+                queue.add(cur.left);             // Add to queue for future processing
             }
 
-            // Add right child to queue if it exists
+            // Process right child if it exists
             if (cur.right != null) {
-                // Right child is one level deeper than parent
+                // Key insight: child level = parent level + 1
                 levelMap.put(cur.right, curNodeLevel + 1);
-                queue.add(cur.right);
+                queue.add(cur.right);            // Add to queue for future processing
             }
 
-            // Check if current node belongs to the level we're counting
+            // Check if current node belongs to level we're counting
             if (curNodeLevel == curLevel) {
-                // Increment count for current level
-                curLevelNodes++;
+                curLevelNodes++;                 // Count this node in current level
             } else {
-                // We've moved to next level, so finalize previous level
-                // Update maximum width if current level was wider
-                max = Math.max(max, curLevelNodes);
-                // Move to next level and reset counter
-                curLevel++;
-                curLevelNodes = 1; // Current node is first node of new level
+                // We've moved to next level - finalize previous level count
+                max = Math.max(max, curLevelNodes);  // Update global maximum
+                curLevel++;                      // Move to next level
+                curLevelNodes = 1;              // Current node starts new level count
             }
         }
 
-        // Don't forget to check the last level processed
+        // Critical: Don't forget last level (loop ends before final comparison)
         max = Math.max(max, curLevelNodes);
         return max;
     }
 
     /**
-     * Method 2: Calculate maximum width without HashMap (more space efficient)
-     * Uses two pointers to track current and next level boundaries
-     * Time Complexity: O(n) where n is number of nodes
-     * Space Complexity: O(w) where w is maximum width (for queue only)
+     * METHOD 2 DETAILED EXPLANATION:
      *
-     * @param head root node of the binary tree
-     * @return maximum width (number of nodes) at any level
+     * Strategy: Track level boundaries without HashMap
+     *
+     * Key insight: In BFS, we can identify level boundaries by tracking:
+     * - curEnd: rightmost node of current level
+     * - nextEnd: rightmost node being discovered for next level
+     *
+     * Why this works:
+     * - When we finish processing curEnd, we've finished current level
+     * - nextEnd gets updated as we discover nodes for next level
+     * - No need to store level info for every node
+     *
+     * Trade-offs:
+     * + More space efficient (no HashMap)
+     * + Slightly faster (no HashMap lookups)
+     * - Requires careful boundary tracking logic
+     * - Less intuitive than Method 1
      */
     public static int maxWidthNoMap(Node head) {
-        // Base case: empty tree has width 0
-        if (head == null) {
-            return 0;
+        if (head == null) {                     // Edge case: empty tree
+            return 0;                           // Width is 0
         }
 
-        // Initialize queue for level-order traversal
-        Queue<Node> queue = new LinkedList<>();
-        queue.add(head); // Add root to start
+        Queue<Node> queue = new LinkedList<>();  // BFS queue
+        queue.add(head);                        // Start with root
 
-        Node curEnd = head;    // Rightmost node of current level
-        Node nextEnd = null;   // Will track rightmost node of next level
-        int max = 0;          // Maximum width found so far
-        int curLevelNodes = 0; // Count of nodes in current level
+        // Boundary tracking variables - core innovation of this method
+        Node curEnd = head;                     // Last node of current level
+        Node nextEnd = null;                    // Last node discovered for next level
+        int max = 0;                           // Global maximum width
+        int curLevelNodes = 0;                 // Current level node count
 
-        // Process all nodes level by level
         while (!queue.isEmpty()) {
-            // Get next node to process
-            Node cur = queue.poll();
+            Node cur = queue.poll();            // Get next node to process
 
-            // Add left child if exists
+            // Add children and update next level boundary
             if (cur.left != null) {
                 queue.add(cur.left);
-                // Update next level's rightmost node
-                nextEnd = cur.left;
+                nextEnd = cur.left;             // Update next level's rightmost node
             }
 
-            // Add right child if exists
             if (cur.right != null) {
                 queue.add(cur.right);
-                // Update next level's rightmost node (overwrites left if both exist)
-                nextEnd = cur.right;
+                nextEnd = cur.right;            // Right child becomes new rightmost
             }
 
-            // Count current node in current level
-            curLevelNodes++;
+            curLevelNodes++;                    // Count current node
 
             // Check if we've reached end of current level
-            if (cur == curEnd) {
-                // Update maximum width if current level is wider
-                max = Math.max(max, curLevelNodes);
-                // Reset for next level
-                curLevelNodes = 0;
-                // Move boundary to next level's end
-                curEnd = nextEnd;
+            if (cur == curEnd) {                // Current node is last of its level
+                max = Math.max(max, curLevelNodes);  // Update maximum
+                curLevelNodes = 0;              // Reset counter for next level
+                curEnd = nextEnd;               // Move boundary to next level
             }
         }
         return max;
     }
 
     /**
-     * Test utility: Generate a random binary search tree for testing
+     * TEST GENERATION METHODS:
      *
-     * @param maxLevel maximum depth of the tree
-     * @param maxValue maximum value for node data
-     * @return root of generated random tree
+     * Purpose: Create random binary trees for algorithm testing
+     * Strategy: Recursive generation with random termination
      */
     public static Node generateRandomBST(int maxLevel, int maxValue) {
-        // Start generation from level 1
-        return generate(1, maxLevel, maxValue);
+        return generate(1, maxLevel, maxValue);  // Start from level 1
     }
 
     /**
-     * Recursive helper method to generate random binary tree
+     * Recursive tree generator
      *
-     * @param level current level being generated
-     * @param maxLevel maximum allowed depth
-     * @param maxValue maximum value for node data
-     * @return generated subtree root or null
+     * Termination conditions:
+     * 1. Reached maximum depth (maxLevel)
+     * 2. Random termination (Math.random() < 0.5 gives 50% chance)
+     *
+     * This creates varied tree shapes for comprehensive testing
      */
     public static Node generate(int level, int maxLevel, int maxValue) {
-        // Stop generation if max level reached or random termination
+        // Two termination conditions for realistic tree variety
         if (level > maxLevel || Math.random() < 0.5) {
-            return null;
+            return null;                        // Terminate this branch
         }
 
-        // Create new node with random value
-        Node head = new Node((int) (Math.random() * maxValue));
-        // Recursively generate left and right subtrees
-        head.left = generate(level + 1, maxLevel, maxValue);
-        head.right = generate(level + 1, maxLevel, maxValue);
+        Node head = new Node((int) (Math.random() * maxValue));  // Random node value
+        head.left = generate(level + 1, maxLevel, maxValue);     // Recursive left
+        head.right = generate(level + 1, maxLevel, maxValue);    // Recursive right
         return head;
     }
 
     /**
-     * Main method for testing both algorithms
-     * Generates random trees and compares results from both methods
+     * TESTING FRAMEWORK:
+     *
+     * Strategy: Comparative testing
+     * - Generate many random trees
+     * - Compare results from both methods
+     * - Any discrepancy indicates a bug
      */
     public static void main(String[] args) {
-        int maxLevel = 10;      // Maximum tree depth for testing
-        int maxValue = 100;     // Maximum node value for testing
-        int testTimes = 1000000; // Number of test cases to run
+        int maxLevel = 10;                      // Tree depth limit
+        int maxValue = 100;                     // Node value range
+        int testTimes = 1000000;               // Extensive testing
 
-        // Run extensive testing
         for (int i = 0; i < testTimes; i++) {
-            // Generate random test tree
-            Node head = generateRandomBST(maxLevel, maxValue);
-            // Compare results from both methods
+            Node head = generateRandomBST(maxLevel, maxValue);  // Generate test case
+
+            // Compare both methods - they must always agree
             if (maxWidthUseMap(head) != maxWidthNoMap(head)) {
-                // If results differ, there's a bug
-                System.out.println("Oops!");
+                System.out.println("Oops!");    // Bug detected!
             }
         }
-        // All tests passed
-        System.out.println("finish!");
+        System.out.println("finish!");         // All tests passed
     }
 
     /**
-     * Binary tree node class
-     * Simple structure containing value and references to children
+     * BINARY TREE NODE:
+     *
+     * Simple structure representing tree nodes
+     * Contains value and references to children
      */
     public static class Node {
-        public int value;  // Data stored in this node
-        public Node left;  // Reference to left child (can be null)
-        public Node right; // Reference to right child (can be null)
+        public int value;                       // Node's data
+        public Node left;                       // Left child reference
+        public Node right;                      // Right child reference
 
-        /**
-         * Constructor to create new node with given value
-         *
-         * @param data the integer value to store in this node
-         */
         public Node(int data) {
-            this.value = data;
-            // left and right are automatically initialized to null
+            this.value = data;                  // Set node value
+            // left and right automatically null (Java default)
         }
     }
 }
