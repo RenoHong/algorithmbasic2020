@@ -163,6 +163,7 @@ public class Code05_MaxSubBSTSize {
         public int allSize;           // Total number of nodes in this subtree.
         public int max;               // Maximum value in this subtree.
         public int min;               // Minimum value in this subtree.
+
         public Info(int m, int a, int ma, int mi) {
             maxBSTSubtreeSize = m;
             allSize = a;

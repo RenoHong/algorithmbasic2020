@@ -25,6 +25,13 @@ public class Code03_BestArrange {
         for (int i = 0; i < programs.length; i++) {
             if (programs[i].start >= timeLine) {
                 Program[] next = copyButExcept(programs, i);
+//                这句话是有必要的。虽然 `done+1` 通常比 `done` 大，但 `max` 还会和递归返回的结果比较。递归返回的结果可能比 `done+1` 更大（比如后续还能安排更多会议），所以需要用 `Math.max` 比较。
+//
+//                举例说明：
+//                - 当前 `done=2`，本次递归选择了一个会议，`done+1=3`，但后续递归可能还能安排更多会议，比如最终返回 5。
+//                - 这时 `max = Math.max(2, 5)`，结果是 5，而不是 3。
+//
+//                所以不能直接用 `done+1`，必须用 `Math.max` 比较递归返回的最大值。
                 max = Math.max(max, process(next, done + 1, programs[i].end));
             }
         }
