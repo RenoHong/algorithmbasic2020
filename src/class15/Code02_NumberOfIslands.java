@@ -8,8 +8,31 @@ import java.util.Stack;
 // 本题为leetcode原题
 // 测试链接：https://leetcode.cn/problems/number-of-islands/
 // 所有方法都可以直接通过
+/**
+ * Problem: Count connected components of '1's in a 2D grid (4-directional connectivity).
+ * Provided solutions:
+ *   - numIslands3: DFS "infection" (flood fill). Simple and fast; modifies grid.
+ *   - numIslands1: Union-Find using objects and HashMaps. Educational/reference.
+ *   - numIslands2: Union-Find optimized with arrays and index mapping. Production-friendly.
+ * Trade-offs:
+ *   - DFS: O(R*C) time, O(R*C) worst-case recursion stack; no extra DSU structures.
+ *   - DSU(Map): O(R*C α(N)) time but higher overhead due to boxing/HashMap.
+ *   - DSU(Array): O(R*C α(N)) time and O(R*C) space; efficient and non-recursive.
+ */
 public class Code02_NumberOfIslands {
 
+    /**
+     * What: Counts islands using DFS flood fill (infect).
+     * Why: Very straightforward; whenever we see a '1', it's a new island; flood it to avoid recounting.
+     * How:
+     *   - Scan all cells; when board[i][j] == '1', increment count and infect neighbors to mark the whole island.
+     *   - infect() sets visited land to '0' to prevent double-counting.
+     * Complexity: O(R*C) time; O(R*C) recursion depth worst-case.
+     * Diagram:
+     *   1 1 0       encounter (0,0) → infect whole 2x1 block
+     *   1 0 1       next '1' at (1,2) → new island
+     *   ⇒ answer = 2
+     */
     public static int numIslands3(char[][] board) {
         int islands = 0;
         for (int i = 0; i < board.length; i++) {
@@ -23,6 +46,14 @@ public class Code02_NumberOfIslands {
         return islands;
     }
 
+    /**
+     * What: Flood fill from (i, j) converting the entire connected component of '1's to '0's.
+     * Why: Marks visited land so it won't be counted again; ensures each island contributes exactly 1.
+     * How:
+     *   - Stop at out-of-bounds or if current cell is not '1'.
+     *   - Set current to '0' and recurse to 4 neighbors.
+     * Complexity: Each cell visited at most once; overall O(R*C).
+     */
     // 从(i,j)这个位置出发，把所有练成一片的'1'字符，变成0
     public static void infect(char[][] board, int i, int j) {
         if (i < 0 || i == board.length || j < 0 || j == board[0].length || board[i][j] != '1') {
@@ -35,6 +66,16 @@ public class Code02_NumberOfIslands {
         infect(board, i, j + 1);
     }
 
+    /**
+     * What: Counts islands using Union-Find with object-based nodes (Dot) and HashMaps.
+     * Why: Demonstrates DSU without relying on index math; maps are flexible but slower.
+     * How:
+     *   - Create Dot objects only for '1's; build a list to initialize UnionFind1.
+     *   - Union adjacent '1's horizontally and vertically.
+     *   - The number of sets in DSU is the number of islands.
+     * Complexity: O(R*C α(N)) time; space proportional to number of '1's.
+     * Note: Splits edge unions into top row, left column, and inner cells to minimize checks.
+     */
     public static int numIslands1(char[][] board) {
         int row = board.length;
         int col = board[0].length;
@@ -75,6 +116,20 @@ public class Code02_NumberOfIslands {
         return uf.sets();
     }
 
+    /**
+     * What: Counts islands using Union-Find optimized with arrays and index mapping.
+     * Why: Avoids object/HashMap overhead; faster and memory efficient.
+     * How:
+     *   - Initialize DSU entries only for cells with '1' (others remain zero size).
+     *   - Union neighbor pairs along first row, first column, and internal cells.
+     *   - Return DSU set count.
+     * Complexity: O(R*C α(N)) time; O(R*C) space.
+     * Diagram (indexing):
+     *   index(r,c) = r * col + c
+     *   2x3 grid:
+     *     (0,0)=0 (0,1)=1 (0,2)=2
+     *     (1,0)=3 (1,1)=4 (1,2)=5
+     */
     public static int numIslands2(char[][] board) {
         int row = board.length;
         int col = board[0].length;
@@ -104,6 +159,11 @@ public class Code02_NumberOfIslands {
         return uf.sets();
     }
 
+    /**
+     * What: Generates a random R x C grid of '1' and '0' for testing.
+     * Why: Used to benchmark and validate methods on varied inputs.
+     * Complexity: O(R*C).
+     */
     // 为了测试
     public static char[][] generateRandomMatrix(int row, int col) {
         char[][] board = new char[row][col];
@@ -115,6 +175,11 @@ public class Code02_NumberOfIslands {
         return board;
     }
 
+    /**
+     * What: Deep copy a grid.
+     * Why: Preserve original data for fair comparisons across methods.
+     * Complexity: O(R*C).
+     */
     // 为了测试
     public static char[][] copy(char[][] board) {
         int row = board.length;
@@ -128,6 +193,14 @@ public class Code02_NumberOfIslands {
         return ans;
     }
 
+    /**
+     * What: Benchmarks and compares three implementations on large random grids.
+     * Why: Demonstrates performance characteristics and validates correctness.
+     * Notes:
+     *   - numIslands3 (DFS) can be faster on some inputs but uses recursion.
+     *   - numIslands1 (Map DSU) is slower due to HashMap overhead.
+     *   - numIslands2 (Array DSU) scales better for large grids.
+     */
     // 为了测试
     public static void main(String[] args) {
         int row = 0;
@@ -187,6 +260,10 @@ public class Code02_NumberOfIslands {
 
     }
 
+    /**
+     * Node wrapper so that different V values map to their own nodes in DSU.
+     * Used by UnionFind1 (map-based DSU).
+     */
     public static class Node<V> {
 
         V value;
@@ -197,11 +274,24 @@ public class Code02_NumberOfIslands {
 
     }
 
+    /**
+     * Union-Find (DSU) based on HashMaps.
+     * Why: Works with arbitrary reference types (e.g., Dot) without index math.
+     * Structure:
+     *   - nodes: V → Node<V> mapping
+     *   - parents: Node → parent Node
+     *   - sizeMap: root Node → size
+     */
     public static class UnionFind1<V> {
         public HashMap<V, Node<V>> nodes;
         public HashMap<Node<V>, Node<V>> parents;
         public HashMap<Node<V>, Integer> sizeMap;
 
+        /**
+         * What: Initialize DSU with each value as its own set.
+         * Why: Start with all nodes disjoint; union merges later.
+         * Complexity: O(N) where N is number of values.
+         */
         public UnionFind1(List<V> values) {
             nodes = new HashMap<>();
             parents = new HashMap<>();
@@ -214,6 +304,14 @@ public class Code02_NumberOfIslands {
             }
         }
 
+        /**
+         * What: Find representative node with path compression using a stack.
+         * Why: Flatten paths to speed up subsequent finds/unions.
+         * How:
+         *   - Walk up via parents until root.
+         *   - Compress all nodes on the path to point to root.
+         * Complexity: Amortized inverse Ackermann.
+         */
         public Node<V> findFather(Node<V> cur) {
             Stack<Node<V>> path = new Stack<>();
             while (cur != parents.get(cur)) {
@@ -226,6 +324,14 @@ public class Code02_NumberOfIslands {
             return cur;
         }
 
+        /**
+         * What: Union sets containing values a and b by size.
+         * Why: Keep DSU trees shallow for performance.
+         * How:
+         *   - Find roots for a and b.
+         *   - Attach smaller set under larger; update sizes; remove small from sizeMap.
+         * Complexity: Amortized near-constant.
+         */
         public void union(V a, V b) {
             Node<V> aHead = findFather(nodes.get(a));
             Node<V> bHead = findFather(nodes.get(b));
@@ -240,12 +346,26 @@ public class Code02_NumberOfIslands {
             }
         }
 
+        /**
+         * What: Current number of disjoint sets.
+         * Why: Equals number of islands when initialized with all '1's and unions applied.
+         * Complexity: O(1).
+         */
         public int sets() {
             return sizeMap.size();
         }
 
     }
 
+    /**
+     * Array-based Union-Find for grids.
+     * Fields:
+     *   - parent, size: DSU arrays sized row*col
+     *   - help: temp array for path compression
+     *   - col: number of columns (for index mapping)
+     *   - sets: current number of land components
+     * Why: Efficient DSU tailored to grid indices.
+     */
     public static class UnionFind2 {
         private int[] parent;
         private int[] size;
@@ -253,6 +373,11 @@ public class Code02_NumberOfIslands {
         private int col;
         private int sets;
 
+        /**
+         * What: Initialize DSU for all cells; activate entries only for '1's.
+         * Why: Avoids creating sets for water cells; sets counts land components.
+         * Complexity: O(R*C) initialization.
+         */
         public UnionFind2(char[][] board) {
             col = board[0].length;
             sets = 0;
@@ -273,11 +398,21 @@ public class Code02_NumberOfIslands {
             }
         }
 
+        /**
+         * What: Map (r, c) to 1D index.
+         * Why: Allows DSU arrays to represent 2D grid cells.
+         * Complexity: O(1).
+         */
         // (r,c) -> i
         private int index(int r, int c) {
             return r * col + c;
         }
 
+        /**
+         * What: Find with path compression using an auxiliary array.
+         * Why: Improves amortized complexity of DSU operations.
+         * Complexity: Amortized inverse Ackermann.
+         */
         // 原始位置 -> 下标
         private int find(int i) {
             int hi = 0;
@@ -291,6 +426,14 @@ public class Code02_NumberOfIslands {
             return i;
         }
 
+        /**
+         * What: Union two cells (r1,c1) and (r2,c2) if both are land and in bounds.
+         * Why: Merge adjacent land components into larger islands.
+         * How:
+         *   - Bounds check; skip if either is water (size == 0).
+         *   - Union by size; decrement sets when merged.
+         * Complexity: Amortized near-constant.
+         */
         public void union(int r1, int c1, int r2, int c2) {
             int i1 = index(r1, c1);
             int i2 = index(r2, c2);
@@ -308,6 +451,10 @@ public class Code02_NumberOfIslands {
             }
         }
 
+        /**
+         * What: Returns the current number of islands (disjoint land sets).
+         * Complexity: O(1).
+         */
         public int sets() {
             return sets;
         }
