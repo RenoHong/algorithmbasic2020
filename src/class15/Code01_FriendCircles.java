@@ -4,33 +4,58 @@ package class15;
 // 测试链接：https://leetcode.cn/problems/friend-circles/
 //  https://leetcode.cn/problems/number-of-provinces/
 // 可以直接通过
+
 /**
- * Problem: Find the number of friend circles (connected components) in a friendship adjacency matrix M.
- * Why Union-Find: We need to count connected components efficiently while merging connections.
- *   - Each student starts as its own set.
- *   - For every friendship M[i][j] == 1, we union the two sets.
- *   - The number of disjoint sets at the end is the number of friend circles.
+ * 547. Friend Circles (Number of Provinces)
+ *
+ * Problem:
+ * Given an N x N symmetric matrix M where M[i][j] == 1 means students i and j are direct friends,
+ * and friendship is transitive, count how many friend circles (connected components) exist.
+ *
+ * Constraints:
+ * - 1 <= N <= 200
+ * - M[i][i] == 1
+ * - M[i][j] == M[j][i]
+ *
+ * Approach (Union-Find):
+ * 1. Treat each student as its own set initially.
+ * 2. Scan only the upper triangle (j > i) to avoid duplicate processing.
+ * 3. When M[i][j] == 1, union(i, j).
+ * 4. The number of remaining disjoint sets is the answer.
+ *
  * Complexity:
- *   - Time: O(N^2 α(N)) scanning upper triangle and unions; α is inverse Ackermann (very small).
- *   - Space: O(N) for DSU arrays.
- * Intuition (diagram):
- *   M =
- *     i\j 0 1 2
- *      0  1 1 0
- *      1  1 1 0
- *      2  0 0 1
- *   Unions: (0,1) → sets {0,1}, {2} → answer 2.
+ * - Time: O(N^2 * α(N))  (α = inverse Ackermann, effectively constant)
+ * - Space: O(N)
+ *
+ * Example 1:
+ * M = [[1,1,0],
+ *      [1,1,0],
+ *      [0,0,1]]
+ * Answer: 2   (circles: {0,1}, {2})
+ *
+ * Example 2:
+ * M = [[1,1,0],
+ *      [1,1,1],
+ *      [0,1,1]]
+ * Answer: 1   (circle: {0,1,2})
+ *
+ * Visualization (Example 1):
+ *   0 ─ 1      2
+ *
+ * Reason:
+ * Union-Find enables fast merging and direct component counting.
  */
+
 public class Code01_FriendCircles {
 
     /**
      * What: Counts connected components (friend circles) in adjacency matrix M using Union-Find.
      * Why: Union-Find provides near-constant-time merging and component counting.
      * How:
-     *   - Initialize DSU with N nodes.
-     *   - Scan only j > i (upper triangle) since M is symmetric and diagonal is self.
-     *   - Union i and j when M[i][j] == 1.
-     *   - Return number of disjoint sets.
+     * - Initialize DSU with N nodes.
+     * - Scan only j > i (upper triangle) since M is symmetric and diagonal is self.
+     * - Union i and j when M[i][j] == 1.
+     * - Return number of disjoint sets.
      * Complexity: O(N^2 α(N)) time; O(N) space.
      */
     public static int findCircleNum(int[][] M) {
@@ -88,8 +113,8 @@ public class Code01_FriendCircles {
          * What: Finds the representative (root) of node i with path compression.
          * Why: Path compression flattens the tree for near-constant-time future operations.
          * How:
-         *   - Walk up parents until i == parent[i].
-         *   - Record path in help[], then compress all nodes on the path to point directly to root.
+         * - Walk up parents until i == parent[i].
+         * - Record path in help[], then compress all nodes on the path to point directly to root.
          * Complexity: Amortized inverse Ackermann per call.
          *
          */
@@ -131,15 +156,15 @@ public class Code01_FriendCircles {
          * What: Merge the sets containing i and j using union by size.
          * Why: Union by size keeps trees shallow, improving performance with path compression.
          * How:
-         *   - Find roots f1 and f2.
-         *   - If different, attach smaller tree to larger; update size and decrement sets.
+         * - Find roots f1 and f2.
+         * - If different, attach smaller tree to larger; update size and decrement sets.
          * Complexity: Amortized near-constant time.
          * Diagram:
-         *   f1(0..2) size=3      f2(3..4) size=2
-         *        f1                    f2
-         *       /|\                   / \
-         *      0 1 2                 3   4
-         *   union → parent[f2]=f1, size[f1]=5, sets--.
+         * f1(0..2) size=3      f2(3..4) size=2
+         * f1                    f2
+         * /|\                   / \
+         * 0 1 2                 3   4
+         * union → parent[f2]=f1, size[f1]=5, sets--.
          */
         public void union(int i, int j) {
             int f1 = find(i);

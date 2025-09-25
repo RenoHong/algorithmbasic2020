@@ -8,9 +8,20 @@ import java.util.List;
 // 测试链接：https://leetcode.cn/problems/number-of-islands-ii/
 // 所有方法都可以直接通过
 /**
- * Problem: Given an initially water grid (m x n) and a sequence of land additions (positions),
- * return the number of islands after each addition.
- * Key: Dynamic connectivity — each connect(r,c) may create a new island or merge with neighbors.
+<pre>A 2d grid map of m rows and n columns is initially filled with water. We may perform an addLand operation which turns the water at position (row, col) into a land.Given a list of positions to operate, count the number of islands after each addLand operation.An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.You may assume all four edges of the grid are all surrounded by water.
+ </pre>
+ <b>Example:</b>
+<pre>
+ <b>Input:</b> m = 3, n = 3, positions = [[0,0], [0,1], [1,2], [2,1]]
+ <b>Output:</b> [1,1,2,3]
+ </pre>
+ <b>Explanation:</b>
+ <pre>Initially, the 2d grid grid is filled with water. (Assume 0 represents water and 1 represents land).</pre>
+ <pre>
+ 1 1 0
+ 0 0 0   Number of islands = 1
+ 0 0 0
+ </pre>
  * Approaches:
  *   - UnionFind1: Pre-allocated arrays sized m*n; good when m*n is manageable.
  *   - UnionFind2: Sparse map-based DSU; avoids O(m*n) init when k (positions) is small vs. m*n.

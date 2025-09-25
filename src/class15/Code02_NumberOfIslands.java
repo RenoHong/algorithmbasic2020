@@ -16,7 +16,7 @@ import java.util.Stack;
  *   - numIslands2: Union-Find optimized with arrays and index mapping. Production-friendly.
  * Trade-offs:
  *   - DFS: O(R*C) time, O(R*C) worst-case recursion stack; no extra DSU structures.
- *   - DSU(Map): O(R*C α(N)) time but higher overhead due to boxing/HashMap.
+ *   - DSU(Disjoin Set Union Map): O(R*C α(N)) time but higher overhead due to boxing/HashMap.
  *   - DSU(Array): O(R*C α(N)) time and O(R*C) space; efficient and non-recursive.
  */
 public class Code02_NumberOfIslands {
