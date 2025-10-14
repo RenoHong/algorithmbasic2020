@@ -2,6 +2,18 @@ package class16;
 
 import java.util.*;
 
+
+/***
+ * Uses Kahn's algorithm (BFS in-degree method):
+ *
+ * 1. Compute remaining in-degree for every node.
+ * 2. Initialize a queue with all nodes whose in-degree is 0.
+ * 3. Repeatedly dequeue a node, append to result, decrement in-degree of its outgoing neighbors.
+ * 4. When a neighbor\'s in-degree drops to 0, enqueue it.
+ * 5. Collected order is a valid topological ordering (for DAGs).
+ *
+ * Time: O(V + E). Space: O(V).
+ */
 public class Code03_TopologySort {
 
     // directed graph and no loop
