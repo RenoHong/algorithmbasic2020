@@ -97,6 +97,41 @@ public class Code02_Hanoi {
     // 3) 去打印第二部分 -> 右子树
     // 那么你只需要记录每一个任务 : 有没有加入过左子树的任务
     // 就可以完成迭代对递归的替代了
+//    汉诺塔问题的递归树结构（以 N=3 为例）：
+//
+//                     move(L, R, M, 3)
+//                     /       |       \
+//                 步骤1        步骤2      步骤3
+//          move(L,M,R,2)  "3:L→R"  move(M,R,L,2)
+//          /    |    \              /    |    \
+//     步骤1  步骤2  步骤3         步骤1  步骤2  步骤3
+//   (L,R,M,1) "2:L→M" (R,M,L,1) ...
+//     |                  |
+//  "1:L→R"            "1:R→M"
+//
+//    第1步：弹出 (3, left→right, mid)
+//├─ level=3 且不在 FinishLeft 中
+//├─ 动作：加入 FinishLeft，压回自己，压入左子任务
+//└─ Stack: [(3, left→right, mid), (2, left→mid, right)]
+//    FinishLeft: {(3, left→right, mid)}
+//
+//    第2步：弹出 (2, left→mid, right)
+//├─ level=2 且不在 FinishLeft 中
+//├─ 动作：加入 FinishLeft，压回自己，压入左子任务
+//└─ Stack: [(3, left→right, mid), (2, left→mid, right), (1, left→right, mid)]
+//    FinishLeft: {(3,...), (2,...)}
+//
+//    第3步：弹出 (1, left→right, mid)
+//├─ level=1，直接打印
+//└─ 输出："Move 1 from left to right"
+//    Stack: [(3, left→right, mid), (2, left→mid, right)]
+//
+//    第4步：弹出 (2, left→mid, right)
+//├─ level=2 且已在 FinishLeft 中（第二次弹出）
+//            ├─ 打印自己，压入右子任务
+//├─ 输出："Move 2 from left to mid"
+//            └─ Stack: [(3, left→right, mid), (1, right→mid, left)]
+//
     public static void hanoi3(int N) {
         if (N < 1) {
             return;
@@ -143,10 +178,10 @@ public class Code02_Hanoi {
     public static void main(String[] args) {
         int n = 3;
         hanoi1(n);
-        System.out.println("============");
-        hanoi2(n);
-        System.out.println("============");
-        hanoi3(n);
+        // System.out.println("============");
+        // hanoi2(n);
+        // System.out.println("============");
+        // hanoi3(n);
     }
 
     public static class Record {

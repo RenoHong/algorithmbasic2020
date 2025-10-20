@@ -56,18 +56,21 @@ public class Code03_PrintAllSubsquences {
     }
 
     public static void main(String[] args) {
-        String test = "acccc";
-        List<String> ans1 = subs(test);
-        List<String> ans2 = subsNoRepeat(test);
+        // String test = "acccc";
+        // List<String> ans1 = subs(test);
+        // List<String> ans2 = subsNoRepeat(test);
 
-        for (String str : ans1) {
-            System.out.println(str);
-        }
-        System.out.println("=================");
-        for (String str : ans2) {
-            System.out.println(str);
-        }
-        System.out.println("=================");
+        // for (String str : ans1) {
+        //     System.out.println(str);
+        // }
+        // System.out.println("=================");
+        // for (String str : ans2) {
+        //     System.out.println(str);
+        // }
+        // System.out.println("=================");
+
+        String s = "abc" ;
+        System.out.println(subs(s));
 
     }
 
