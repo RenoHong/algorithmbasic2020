@@ -1,4 +1,4 @@
-package class01;
+package class01; 
 
 public class Code07_EvenTimesOddTimes {
 
@@ -11,7 +11,7 @@ public class Code07_EvenTimesOddTimes {
         System.out.println(eor);
     }
 
-    // arr中，有两种数，出现奇数次
+    // arr中，有两种数，出现奇数次。 找出两个出现奇数次的数
     public static void printOddTimesNum2(int[] arr) {
         int eor = 0;
         for (int i = 0; i < arr.length; i++) {

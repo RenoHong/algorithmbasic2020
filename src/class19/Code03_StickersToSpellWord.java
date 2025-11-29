@@ -148,4 +148,16 @@ public class Code03_StickersToSpellWord {
         return ans;
     }
 
+
+    public static void main(String[] args){
+        String[] stickers = {"with", "example", "science"};
+        String target = "thehat" ;
+
+        int count1 = minStickers1(stickers, target);
+        int count2 = minStickers2(stickers, target);
+        int count3 = minStickers3(stickers, target);
+
+        System.out.println(String.format("%d %d %d", count1, count2, count3));
+
+    }
 }

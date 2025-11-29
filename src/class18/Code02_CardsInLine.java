@@ -156,7 +156,7 @@ public class Code02_CardsInLine {
      * @return maximum score achievable as first mover in [L,R]
      */
     // arr[L..R]，先手获得的最好分数返回
-                                                                            public static int f1(int[] arr, int L, int R) {
+    public static int f1(int[] arr, int L, int R) {
         // Base case: only one card left
         if (L == R) {
             return arr[L]; // Take the only card available
