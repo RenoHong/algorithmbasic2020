@@ -5,7 +5,8 @@ import java.util.Stack;
 
 /**
  * Implements a stack that supports retrieving the minimum value in O(1) time.
- * Uses two stacks: one for data and one for tracking minimums.
+ * Uses two stacks: one for data and one for tracking minimums. At any time, the
+ * top of the minimum stack represents the current minimum in the data stack.
  */
 public class Code05_GetMinStack {
 
